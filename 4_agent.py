@@ -5,8 +5,10 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain import hub
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
+os.environ['LANGSMITH_PROJECT'] = 'ReAct Agent'
 
 search_tool = DuckDuckGoSearchRun()
 
@@ -41,12 +43,12 @@ agent_executor = AgentExecutor(
     max_iterations=5
 )
 
-# What is the release date of Dhadak 2?
-# What is the current temp of gurgaon
-# Identify the birthplace city of Kalpana Chawla (search) and give its current temperature.
+# What is the release date of Oppenheimer 2?
+# What is the current temp of Florence?
+# Identify the birthplace city of Jennifer Anistor (search) and give its current temperature.
 
 # Step 5: Invoke
-response = agent_executor.invoke({"input": "What is the current temp of gurgaon"})
+response = agent_executor.invoke({"input": "Identify the birthplace city of Jennifer Anistor (search) and give its current temperatur"})
 print(response)
 
 print(response['output'])

@@ -1,0 +1,3 @@
+The output of LLMs is non-deterministic, meaning the same input can produce different outputs. Because of this, when issues such as latency, cost, or hallucinations occur, it becomes difficult to debug or trace them. Observability helps address this by allowing us to understand a system’s internal state through its external outputs, such as logs, metrics, and traces.
+
+This project demonstrates the integration of LangSmith with LangChain, a RAG-based chatbot, and LangGraph.

@@ -2,16 +2,17 @@
 
 import operator
 from typing import TypedDict, Annotated, List
-
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-
 from langsmith import traceable
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
+import os
 
 # ---------- Setup ----------
 load_dotenv()
+os.environ['LANGSMITH_PROJECT'] = 'LangGraph'
+
 model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # ---------- Structured schema & model ----------
@@ -22,23 +23,11 @@ class EvaluationSchema(BaseModel):
 structured_model = model.with_structured_output(EvaluationSchema)
 
 # ---------- Sample essay ----------
-essay2 = """India and AI Time
+essay2 = """ AI and Medicine
+Artificial Intelligence (AI) is transforming the field of medicine by enhancing the way diseases are diagnosed, treated, and managed. AI-powered systems can analyze large amounts of medical data, such as patient records, lab results, and medical images, much faster and more accurately than humans. For example, AI tools are being used to detect early signs of cancer in X-rays and MRI scans, predict the risk of heart disease, and assist doctors in making personalized treatment plans. By reducing human error and speeding up diagnosis, AI has the potential to improve patient outcomes and save countless lives.
 
-Now world change very fast because new tech call Artificial Intel… something (AI). India also want become big in this AI thing. If work hard, India can go top. But if no careful, India go back.
+Beyond diagnosis, AI is also revolutionizing drug discovery and healthcare management. Machine learning models can predict how different drugs will interact with the body, significantly reducing the time and cost required to develop new medicines. In hospitals, AI-based systems help optimize schedules, manage patient flow, and even support virtual assistants that guide patients through their treatments. However, while AI brings enormous opportunities, it also raises concerns about privacy, ethics, and the need for human oversight. If used responsibly, AI can serve as a powerful partner to doctors, making healthcare more efficient, accurate, and accessible.
 
-India have many good. We have smart student, many engine-ear, and good IT peoples. Big company like TCS, Infosys, Wipro already use AI. Government also do program “AI for All”. It want AI in farm, doctor place, school and transport.
-
-In farm, AI help farmer know when to put seed, when rain come, how stop bug. In health, AI help doctor see sick early. In school, AI help student learn good. Government office use AI to find bad people and work fast.
-
-But problem come also. First is many villager no have phone or internet. So AI not help them. Second, many people lose job because AI and machine do work. Poor people get more bad.
-
-One more big problem is privacy. AI need big big data. Who take care? India still make data rule. If no strong rule, AI do bad.
-
-India must all people together – govern, school, company and normal people. We teach AI and make sure AI not bad. Also talk to other country and learn from them.
-
-If India use AI good way, we become strong, help poor and make better life. But if only rich use AI, and poor no get, then big bad thing happen.
-
-So, in short, AI time in India have many hope and many danger. We must go right road. AI must help all people, not only some. Then India grow big and world say "good job India".
 """
 
 # ---------- LangGraph state ----------
